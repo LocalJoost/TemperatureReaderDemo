@@ -7,9 +7,13 @@ namespace TemperatureReader.Logic.Devices
     public GpioService()
     {
 
-      if (Windows.Foundation.Metadata.ApiInformation‏.IsTypePresent("Windows.Devices.Gpio.GpioController"))
+      if (Windows.Foundation.Metadata.ApiInformation‏.IsTypePresent(
+        "Windows.Devices.Gpio.GpioController"))
       {
-        Controller = GpioController.GetDefault();
+        if (Controller == null)
+        {
+          Controller = GpioController.GetDefault();
+        }
       }
     }
     public GpioController Controller { get; private set; }
