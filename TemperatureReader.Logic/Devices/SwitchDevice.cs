@@ -26,14 +26,9 @@ namespace TemperatureReader.Logic.Devices
 
     public void Toggle()
     {
-      GpioPin pin;
-      if ((pin = GetPin()) != null)
-      {
-        pin.Write(IsOn ? GpioPinValue.Low : GpioPinValue.High);
-      }
+      SwitchOn(!IsOn);
     }
-
-
+    
     public bool IsOn
     {
       get
@@ -47,8 +42,7 @@ namespace TemperatureReader.Logic.Devices
         return false;
       }
     }
-
-
+    
     protected GpioPin GetPin()
     {
       if (_pin == null)
