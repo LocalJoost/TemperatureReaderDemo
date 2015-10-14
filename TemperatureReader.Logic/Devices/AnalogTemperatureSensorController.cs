@@ -44,29 +44,30 @@ namespace TemperatureReader.Logic.Devices
 
     public bool IsMeasuring { get; private set; }
 
-    public bool Start()
+  public bool Start()
+  {
+    if (_gpioCtrl?.Controller != null)
     {
-      if (_gpioCtrl?.Controller != null)
+      IsMeasuring = true;
+
+      if (_adcDigitalIoPin == null)
       {
-        IsMeasuring = true;
-
-        if (_adcDigitalIoPin == null)
-        {
-          _adcCsPin = _gpioCtrl.Controller.OpenPin(_adcCsPinId);
-          _adcClkPin = _gpioCtrl.Controller.OpenPin(_adcClkPinId);
-          _adcDigitalIoPin = _gpioCtrl.Controller.OpenPin(_adcDigitalIoPinId);
-        }
-
-        if (_task == null)
-        {
-          _cancellationTokenSource = new CancellationTokenSource();
-          InitReadSession();
-          _task = new Task(async () => await ExecuteMeasuring(_cancellationTokenSource.Token));
-          _task.Start();
-        }
+        _adcCsPin = _gpioCtrl.Controller.OpenPin(_adcCsPinId);
+        _adcClkPin = _gpioCtrl.Controller.OpenPin(_adcClkPinId);
+        _adcDigitalIoPin = _gpioCtrl.Controller.OpenPin(_adcDigitalIoPinId);
       }
-      return IsMeasuring;
+
+      if (_task == null)
+      {
+        _cancellationTokenSource = new CancellationTokenSource();
+        InitReadSession();
+        _task = new Task(async () => 
+          await ExecuteMeasuring(_cancellationTokenSource.Token));
+        _task.Start();
+      }
     }
+    return IsMeasuring;
+  }
 
     public void Stop()
     {
@@ -161,7 +162,7 @@ namespace TemperatureReader.Logic.Devices
         sequence1 = sequence1 << 1 | (int)_adcDigitalIoPin.Read();
       }
 
-      //Read the seconds sequence
+      //Read the second sequence
       for (var i = 0; i < 8; i++)
       {
         sequence2 = sequence2 | (int)_adcDigitalIoPin.Read() << i;

@@ -53,7 +53,6 @@ namespace TemperatureReader
 
       await poster.Start();
       await thermometer.Start();
-
     }
 
     private async void OnTemperatureMeasured(object sender, TemperatureData e)
