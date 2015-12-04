@@ -4,8 +4,7 @@
   {
 
     public static readonly string TemperatureBusConnectionString =
-         "Endpoint=sb://yournamespace.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=XXXXXXXXXXXXXXXXXYOURKEYHEREXXXXXXXXXXXXXXXX";";
-
+         "Endpoint=sb://localjoosttemperaturebus.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=IWrd0nOx6GMvdr4hpWZpGxMstrQgegdnv9ngBzr63vk=";
     public static readonly string TemperatureQueue = "temperaturedatabus";
     public static readonly int TemperatureQueueTtl = 10;
 
