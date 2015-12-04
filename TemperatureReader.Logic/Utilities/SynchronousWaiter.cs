@@ -21,5 +21,4 @@ namespace TemperatureReader.Logic.Utilities
       }
     }
   }
-
 }
